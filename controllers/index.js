@@ -1,5 +1,5 @@
-const PublicController = require('./PublicController');
+const ImpresionController = require('./ImpresionController');
 
 module.exports = {
-    PublicController
+    ImpresionController
 }
