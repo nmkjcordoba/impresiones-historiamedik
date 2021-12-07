@@ -17,7 +17,7 @@ module.exports = {
     ),
 
     sp_reporte_datos_paciente:(encounter_id,patient_id) => sequelize.query(
-        'EXEC sp_reporte_datos_paciente :encounter_id,:patient_id', 
+        'EXEC sp_reporte_datos_paciente :patient_id,:encounter_id', 
         {replacements:{encounter_id,patient_id}}
     ),
 
