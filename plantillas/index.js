@@ -14,10 +14,15 @@ module.exports = {
         </html>`
     },
     incapacidad:() => {`
-        <html>
-            <h1>Esto es un test de html-pdf</h1>
-            <p>Estoy generando PDF a partir de este código HTML sencillo</p>
-        </html>`
+        <div class="table">
+            <ul>
+                <li>
+                    <span>ACCIDENTE DE TRABAJO, Fecha de inicio: Junio 30, 2020, Fecha final: Julio 2, 2020, Días: 3</span><br/>
+                    <span>Indicaciones: Prórroga: No.</span>
+                </li>
+            </ul>
+        </div>
+        `
     },
     procedimientos:() => {`
         <html>
