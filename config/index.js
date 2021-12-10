@@ -6,7 +6,7 @@ const config = {
         DB_USERNAME: process.env.DB_USERNAME,
         DB_PASSWORD: process.env.DB_PASSWORD,
         DB_NAME: process.env.DB_NAME_PRODUCTION,
-        JWT_SECRET: process.env.JWT_SECRET_PRODUCTION,
+        
 
     },
     staging: {
@@ -14,7 +14,7 @@ const config = {
         DB_USERNAME: process.env.DB_USERNAME,
         DB_PASSWORD: process.env.DB_PASSWORD,
         DB_NAME: process.env.DB_NAME_STAGING,
-        JWT_SECRET: process.env.JWT_SECRET_STAGING,
+        
     },
     
   };

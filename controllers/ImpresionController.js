@@ -1,5 +1,5 @@
 const ImpresionResolver = require('../resolver/ImpresionResolver');
-var { constancia, preescripcion, procedimientos, recomendaciones, incapacidad, historia, prueba} = require('../plantillas');
+var { constancia, preescripcion, procedimientos, recomendaciones, incapacidad, historia, plantillaPrincipal} = require('../plantillas');
 const impirmir = async (req, res) => {
     var pdf = require('html-pdf');
 
@@ -7,16 +7,25 @@ const impirmir = async (req, res) => {
     const r = req.params.r;
     const enc = req.params.encounter;
     const uuid = req.params.uuid;
-    const pac = req.params.pac;
+    const pac = req.params.pac == 0? '':req.params.pac;
     const cita = req.params.cita;
-    var contenidos = prueba()//"<h1>NO HAY DATOS</h1>";
+    const provider_id = req.params.provider_id;
+    var contenido = plantillaPrincipal("Sin datos","<span>No hay datos</span>");
     
-    try {/*
+    try {
         if(r == "CONSTANCIA"){
             contenido = constancia
         }
         if(r == "PRESCRIPCION"){
-            contenido = preescripcion;
+            let response = await fn_preescripcion(pac,enc,uuid,provider_id);
+            
+            let presc = response.reportePreescripcion[0][0]
+            contenido =  
+            plantillaPrincipal(
+                'PRESCRIPCION',
+                preescripcion(presc.drug_name,presc.dosage,presc.quantity,presc.dose,presc.units,presc.route,presc.frequency,presc.duration)
+            );
+            
         }
         if(r == "INCAPACIDAD"){
             contenido = incapacidad;
@@ -29,9 +38,9 @@ const impirmir = async (req, res) => {
         }
         if(r == "HISTORIA"){
             contenido = historia
-        }*/
+        }
         
-        pdf.create(contenidos).toFile(`./netmedik${enc}.pdf`, function(err, resp) {
+        pdf.create(contenido).toFile(`./netmedik${enc}.pdf`, function(err, resp) {
             if (err){
                 console.log(err);
                
@@ -50,12 +59,13 @@ const impirmir = async (req, res) => {
 const fn_preescripcion = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     const reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(enc,null,pac);
-    if(uuid != null){
+    if(uuid == null){
         reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(null,uuid,pac);
     }
     const patient_id = await ImpresionResolver.getEncounter(enc);
-    const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0]["patient_id"]);
+    const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
+    return {datosProvider,reportePreescripcion,patient_id,datosPaciente,firma2}
 }
 
 const fn_incapacidad = async (pac, enc, uuid, provider_id) => {
