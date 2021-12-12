@@ -18,14 +18,36 @@ const impirmir = async (req, res) => {
         }
         if(r == "PRESCRIPCION"){
             let response = await fn_preescripcion(pac,enc,uuid,provider_id);
+            let paciente = response.datosPaciente[0][0];
             
+            contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString())
+            contenido.replace("@nombreCompleto",paciente.nombreCompleto)
+            contenido.replace("@tipo_identificacion",paciente.tipo_identificacion)
+            contenido.replace("@identificacion",paciente.identificacion)
+            contenido.replace("@genero",paciente.genero)
+            contenido.replace("@edad",paciente.edad)
+            contenido.replace("@EstadoCivil",paciente.EstadoCivil)
+            contenido.replace("@Telefono",paciente.Telefono)
+            contenido.replace("@Telefono2",paciente.Telefono2)
+            contenido.replace("@Direccion",paciente.Direccion)
+            contenido.replace("@TipoAfiliacion",paciente.TipoAfiliacion)
+            contenido.replace("@eps",paciente.eps)
+            contenido.replace("@diagnostico",paciente.diagnostico)
+
+            let d_provider = response.datosProvider[0][0];
+            contenido.replace("@nombres",d_provider.nombres)
+            contenido.replace("@identifier",d_provider.identifier)
+            contenido.replace("@fecha_encuentro",d_provider.fecha_encuentro)
+            contenido.replace("@logo",d_provider.logo)
+            contenido.replace("@firma",d_provider.firma)
+
             let presc = response.reportePreescripcion[0][0]
             contenido =  
             plantillaPrincipal(
                 'PRESCRIPCION',
                 preescripcion(presc.drug_name,presc.dosage,presc.quantity,presc.dose,presc.units,presc.route,presc.frequency,presc.duration)
             );
-            
+            console.log(response.datosPaciente[0])
         }
         if(r == "INCAPACIDAD"){
             contenido = incapacidad;
