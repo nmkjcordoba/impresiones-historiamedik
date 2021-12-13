@@ -20,6 +20,9 @@ server.use(express.json());
 // Con esta configuración permitimos acceso cors
 server.use(cors());
 
+//EJECUTAR EL CRON_JOB para eliminar los archivos
+const job = require("../cron/delete_file");
+
 // import all routes
 server.use('/service/print', routes);
 
