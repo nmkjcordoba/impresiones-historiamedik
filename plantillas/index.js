@@ -170,12 +170,7 @@ module.exports = {
             .content3 {
                 width: 15%;
             }
-            td p{
-                font-weight: bold;
-            }
-            .fecha_s {
-                font-weight: bold !important;
-            }
+
 
     </style>
 </head>
@@ -186,7 +181,7 @@ module.exports = {
                 <td class="content"></td>
                 <td class="logo"></td>
                 <td class="content info-factura">
-                    <p><b class="fecha_s">Fecha: </b> @fecha </p>
+                    <p><b>Fecha: </b> @fecha </p>
                 </td>
             </tr>
         </table>
