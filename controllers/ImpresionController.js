@@ -193,9 +193,9 @@ const impirmir = async (req, res) => {
 const fn_preescripcion = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     const reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(enc,null,pac);
-    if(uuid != null){
+    /*if(uuid != null){
         reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(null,uuid,pac);
-    }
+    }*/
     const patient_id = await ImpresionResolver.getEncounter(enc);
     const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
