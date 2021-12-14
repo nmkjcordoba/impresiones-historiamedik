@@ -8,44 +8,28 @@ module.exports = {
         </html>`
     },
     preescripcion:(drug_name,dosage,quality,dose,units,route,frequency,duration) => (`
-        <div class="table">
-            <ul>
-                <li>
-                    <span>${drug_name}, ${dosage},Cantidad: ${quality}, Dosis ${dose} ${units}, ${route}, ${frequency},  ${duration}.</span><br/>
-                </li>
-            </ul>
-        </div>
+        <li>
+            <span>${drug_name}, ${dosage},Cantidad: ${quality}, Dosis ${dose} ${units}, ${route}, ${frequency},  ${duration}.</span><br/>
+        </li>
         `
     ),
     incapacidad:(incapacidad,fecha_incio,fecha_fin,dias,prorroga) => (`
-        <div class="table">
-            <ul>
-                <li>
-                    <span>${incapacidad}, Fecha de inicio: ${fecha_incio}, Fecha final: ${fecha_fin}, Días: ${dias}</span><br/>
-                    <span>Indicaciones: Prórroga: ${prorroga}.</span>
-                </li>
-            </ul>
-        </div>
+        <li>
+            <span>${incapacidad}, Fecha de inicio: ${fecha_incio}, Fecha final: ${fecha_fin}, Días: ${dias}</span><br/>
+            <span>Indicaciones: ${prorroga}</span>
+        </li>
         `
     ),
     procedimientos:(descripcion_orden,instrucciones) => (`
-        <div class="table">
-            <ul>
-                <li>
-                    <span>${descripcion_orden},Instrucciones: ${instrucciones}</span><br/>
-                </li>
-            </ul>
-        </div>
+        <li>
+            <span>${descripcion_orden},Instrucciones: ${instrucciones}</span><br/>
+        </li>
         `
     ),
     recomendaciones:(descripcion_orden,instrucciones) => (`
-        <div class="table">
-            <ul>
-                <li>
-                    <span>${descripcion_orden}, Intrucciones: ${instrucciones}.</span><br/>
-                </li>
-            </ul>
-        </div>
+        <li>
+            <span>${descripcion_orden}, Intrucciones: ${instrucciones}.</span><br/>
+        </li>
         `
     ),
     historia:() => {`
@@ -223,7 +207,11 @@ module.exports = {
         <hr>
         <h3>${tipoOrden}</h3>
         
-        ${orden}
+        <div class="table">
+            <ul>
+                ${orden}
+            </ul>
+        </div>
         
         <div class="footer-factura">
             <table>

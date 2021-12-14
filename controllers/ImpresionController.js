@@ -18,11 +18,17 @@ const impirmir = async (req, res) => {
         }
         if(r == "PRESCRIPCION"){
             let response = await fn_preescripcion(pac,enc,uuid,provider_id);
-            let presc = response.reportePreescripcion[0][0];
+            let presc = response.reportePreescripcion[0];
             contenido =  
             plantillaPrincipal(
                 'PRESCRIPCION',
-                preescripcion(presc.drug_name,presc.dosage,presc.quantity,presc.dose,presc.units,presc.route,presc.frequency,presc.duration)
+                presc.length > 1 ?
+                presc.map(e => (
+                    preescripcion(e.drug_name,e.dosage,e.quantity,e.dose,e.units,e.route,e.frequency,e.duration)
+                ))   
+                :
+                preescripcion(presc[0].drug_name,presc[0].dosage,presc[0].quantity,presc[0].dose,presc[0].units,presc[0].route,presc[0].frequency,presc[0].duration)
+                
             );
 
             let paciente = response.datosPaciente[0][0];            
@@ -52,11 +58,16 @@ const impirmir = async (req, res) => {
         }
         if(r == "INCAPACIDAD"){
             let response = await fn_incapacidad(pac,enc,uuid,provider_id)
-            let incap = response.reporteIncapacidad[0][0];
+            let incap = response.reporteIncapacidad[0];
             contenido = 
             plantillaPrincipal(
                 'Orden Incapacidad',
-                incapacidad(incap.description,incap.start_date,incap.auto_expire_date,incap.Dias,incap.instructions)
+                incap > 1 ?
+                incap.map(e => (
+                    incapacidad(e.description,e.start_date,e.auto_expire_date,e.Dias,e.instructions)    
+                ))
+                :
+                incapacidad(incap[0].description,incap[0].start_date,incap[0].auto_expire_date,incap[0].Dias,incap[0].instructions)
             )
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
@@ -85,11 +96,16 @@ const impirmir = async (req, res) => {
         }
         if(r == "PROCEDIMIENTOS"){
             let response = await fn_procedimientos(pac,enc,uuid,provider_id)
-            let proced = response.reporteProcedimientos[0][0];
+            let proced = response.reporteProcedimientos[0];
             contenido = 
             plantillaPrincipal(
                 'Ordenes',
-                procedimientos(proced.Descripcion_orden,proced.Instrucciones)
+                proced.length > 1 ?
+                proced.map(e =>(
+                    procedimientos(e.Descripcion_orden,e.Instrucciones)    
+                ))
+                :
+                procedimientos(proced[0].Descripcion_orden,proced[0].Instrucciones)
             )
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
@@ -118,11 +134,16 @@ const impirmir = async (req, res) => {
         }
         if(r == "RECOMENDACIONES"){
             let response = await fn_recomendaciones(pac,enc,uuid,provider_id)
-            let recom = response.reporteRecomendaciones[0][0];
+            let recom = response.reporteRecomendaciones[0];
             contenido = 
             plantillaPrincipal(
                 'Orden de Recomendaciones',
-                recomendaciones(recom.Descripcion_orden,recom.Instrucciones)
+                recom.length > 1 ?
+                recom.map(e => (
+                    recomendaciones(e.Descripcion_orden,e.Instrucciones)    
+                ))
+                :
+                recomendaciones(recom[0].Descripcion_orden,recom[0].Instrucciones)
             );
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
@@ -172,9 +193,9 @@ const impirmir = async (req, res) => {
 const fn_preescripcion = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     const reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(enc,null,pac);
-    if(uuid == null){
+    /*if(uuid == null){
         reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(null,uuid,pac);
-    }
+    }*/
     const patient_id = await ImpresionResolver.getEncounter(enc);
     const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
@@ -184,9 +205,9 @@ const fn_preescripcion = async (pac, enc, uuid, provider_id) => {
 const fn_incapacidad = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     let reporteIncapacidad = await ImpresionResolver.sp_reporte_incapacidad(pac,enc,uuid);
-    if(uuid != null){
+    /*if(uuid != null){
         reporteIncapacidad = await ImpresionResolver.sp_reporte_incapacidad(pac,null,uuid);
-    }
+    }*/
     const patient_id = await ImpresionResolver.getEncounter(enc);
     const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
@@ -196,9 +217,9 @@ const fn_incapacidad = async (pac, enc, uuid, provider_id) => {
 const fn_procedimientos = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     let reporteProcedimientos = await ImpresionResolver.sp_reporte_procedimientos(pac,enc,uuid);
-    if(uuid != null){
+    /*if(uuid != null){
         reporteProcedimientos = await ImpresionResolver.sp_reporte_procedimientos(pac,null,uuid);
-    }
+    }*/
     const patient_id = await ImpresionResolver.getEncounter(enc);
     const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
@@ -208,9 +229,9 @@ const fn_procedimientos = async (pac, enc, uuid, provider_id) => {
 const fn_recomendaciones = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     let reporteRecomendaciones = await ImpresionResolver.sp_reporte_otros(pac,enc,uuid);
-    if(uuid != null){
+    /*if(uuid != null){
         reporteRecomendaciones = await ImpresionResolver.sp_reporte_otros(pac,null,uuid);
-    }
+    }*/
     const patient_id = await ImpresionResolver.getEncounter(enc);
     const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
