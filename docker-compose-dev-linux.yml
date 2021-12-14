@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+
+  agendamedik-api:
+    build: 
+      context: .
+      dockerfile: build/development.Dockerfile
+    image: agendamedik-api
+    user: root
+    #command: npm run docs
+    environment:
+      - PORT=3000
+      - BD_SERVER=bx8awnh5ce.database.windows.net
+      - DB_USERNAME=desarrollonk@bx8awnh5ce
+      - DB_PASSWORD=(n3tm3d1k)
+      - DB_NAME_STAGING=netmedik
+    ports:
+      - 9229:9229
+      - 4000:3000
+    volumes:
+      - .:/home/node/app
+      - /home/node/app/node_modules
