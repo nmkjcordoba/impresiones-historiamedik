@@ -8,7 +8,7 @@ services:
     image: "agendamedik-api"
     environment:
       - NODE_ENV=development
-      - PORT=3000
+      - PORT=3055
       - BD_SERVER=bx8awnh5ce.database.windows.net
       - DB_USERNAME=desarrollonk@bx8awnh5ce
       - DB_PASSWORD=(n3tm3d1k)
