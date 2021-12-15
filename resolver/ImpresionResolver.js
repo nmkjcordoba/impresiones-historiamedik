@@ -40,5 +40,10 @@ module.exports = {
         'EXEC sp_reporte_otros :pac,:encounter_id,:uuid', 
         {replacements:{pac,encounter_id,uuid}}
     ),
+
+    sp_reporte_constanciaservicio:(cita) => sequelize.query(
+        'EXEC sp_reporte_constanciaservicio :cita',
+        {replacements:{cita}}
+    )
   
 }

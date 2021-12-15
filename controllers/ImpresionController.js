@@ -14,7 +14,23 @@ const impirmir = async (req, res) => {
     
     try {
         if(r == "CONSTANCIA"){
-            contenido = constancia
+            contenido = constancia();
+            let response = await fn_constancia(cita);
+            let _constancia = response.constancia[0][0]
+            
+            contenido = contenido.replace("@prov_Logo",_constancia.prov_Logo.toString('base64'));
+            contenido = contenido.replace("@prov_Name",_constancia.prov_Name);
+            contenido = contenido.replace("@pt_TipoId",_constancia.pt_TipoId);
+            contenido = contenido.replace("@pt_Identificacion",_constancia.pt_Identificacion);
+            contenido = contenido.replace("@pat_Name",_constancia.pat_Name);
+            contenido = contenido.replace("@pat_Phone",_constancia.pat_Phone);
+            contenido = contenido.replace("@pat_Address",_constancia.pat_Address);
+            contenido = contenido.replace("@pat_Eps",_constancia.pat_Eps);
+            contenido = contenido.replace("@cita_Date",_constancia.cita_Date.trim());
+            contenido = contenido.replace("@cita_Hora",_constancia.cita_Hora);
+            contenido = contenido.replace("@cita_Tipo",_constancia.cita_Tipo);
+            contenido = contenido.replace("@fecha_actual",new Date().toLocaleDateString("en-US").toString());
+            //console.log(contenido)
         }
         if(r == "PRESCRIPCION"){
             let response = await fn_preescripcion(pac,enc,uuid,provider_id);
@@ -174,7 +190,7 @@ const impirmir = async (req, res) => {
             contenido = historia
         }
         
-        pdf.create(contenido).toFile(`./files/netmedik${enc}.pdf`, function(err, resp) {
+        pdf.create(contenido).toFile(`./files/netmedik${enc == 0 ? cita : enc}.pdf`, function(err, resp) {
             if (err){
                 console.log(err);
                
@@ -236,6 +252,11 @@ const fn_recomendaciones = async (pac, enc, uuid, provider_id) => {
     const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
     return {datosProvider,reporteRecomendaciones,patient_id,datosPaciente,firma2}
+}
+
+const fn_constancia = async (cita) => {
+    const constancia = await ImpresionResolver.sp_reporte_constanciaservicio(cita);
+    return {constancia}
 }
 
 module.exports = {
