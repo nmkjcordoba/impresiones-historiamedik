@@ -6,7 +6,7 @@ const impirmir = async (req, res) => {
     
     const r = req.params.r;
     const enc = req.params.encounter;
-    const uuid = req.params.uuid;
+    const uuid = req.params.uuid == 0 ? null : req.params.uuid;
     const pac = req.params.pac == 0? '':req.params.pac;
     const cita = req.params.cita;
     const provider_id = req.params.provider_id;
@@ -38,7 +38,7 @@ const impirmir = async (req, res) => {
             contenido =  
             plantillaPrincipal(
                 'PRESCRIPCION',
-                presc.length > 1 ?
+                presc.length > 1 && uuid == null?
                 presc.map(e => (
                     preescripcion(e.drug_name,e.dosage,e.quantity,e.dose,e.units,e.route,e.frequency,e.duration)
                 ))   
@@ -78,7 +78,7 @@ const impirmir = async (req, res) => {
             contenido = 
             plantillaPrincipal(
                 'Orden Incapacidad',
-                incap > 1 ?
+                incap > 1 && uuid == null?
                 incap.map(e => (
                     incapacidad(e.description,e.start_date,e.auto_expire_date,e.Dias,e.instructions)    
                 ))
@@ -116,7 +116,7 @@ const impirmir = async (req, res) => {
             contenido = 
             plantillaPrincipal(
                 'Ordenes',
-                proced.length > 1 ?
+                proced.length > 1 && uuid == null?
                 proced.map(e =>(
                     procedimientos(e.Descripcion_orden,e.Instrucciones)    
                 ))
@@ -154,7 +154,7 @@ const impirmir = async (req, res) => {
             contenido = 
             plantillaPrincipal(
                 'Orden de Recomendaciones',
-                recom.length > 1 ?
+                recom.length > 1 && uuid == null?
                 recom.map(e => (
                     recomendaciones(e.Descripcion_orden,e.Instrucciones)    
                 ))
@@ -209,7 +209,7 @@ const impirmir = async (req, res) => {
 const fn_preescripcion = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     const reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(enc,null,pac);
-    /*if(uuid == null){
+    /*if(uuid != null){
         reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(null,uuid,pac);
     }*/
     const patient_id = await ImpresionResolver.getEncounter(enc);
@@ -221,9 +221,9 @@ const fn_preescripcion = async (pac, enc, uuid, provider_id) => {
 const fn_incapacidad = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     let reporteIncapacidad = await ImpresionResolver.sp_reporte_incapacidad(pac,enc,uuid);
-    /*if(uuid != null){
+    if(uuid != null){
         reporteIncapacidad = await ImpresionResolver.sp_reporte_incapacidad(pac,null,uuid);
-    }*/
+    }
     const patient_id = await ImpresionResolver.getEncounter(enc);
     const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
@@ -233,9 +233,9 @@ const fn_incapacidad = async (pac, enc, uuid, provider_id) => {
 const fn_procedimientos = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     let reporteProcedimientos = await ImpresionResolver.sp_reporte_procedimientos(pac,enc,uuid);
-    /*if(uuid != null){
+    if(uuid != null){
         reporteProcedimientos = await ImpresionResolver.sp_reporte_procedimientos(pac,null,uuid);
-    }*/
+    }
     const patient_id = await ImpresionResolver.getEncounter(enc);
     const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
@@ -245,9 +245,9 @@ const fn_procedimientos = async (pac, enc, uuid, provider_id) => {
 const fn_recomendaciones = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
     let reporteRecomendaciones = await ImpresionResolver.sp_reporte_otros(pac,enc,uuid);
-    /*if(uuid != null){
+    if(uuid != null){
         reporteRecomendaciones = await ImpresionResolver.sp_reporte_otros(pac,null,uuid);
-    }*/
+    }
     const patient_id = await ImpresionResolver.getEncounter(enc);
     const datosPaciente = await ImpresionResolver.sp_reporte_datos_paciente(enc,patient_id[0][0]["patient_id"]);
     const firma2 = await ImpresionResolver.Usp_Carga_2da_Firma(enc);
