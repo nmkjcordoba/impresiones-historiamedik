@@ -61,7 +61,7 @@ const impirmir = async (req, res) => {
             contenido = contenido.replace("@TipoAfiliacion",paciente.TipoAfiliacion);
             contenido = contenido.replace("@eps",paciente.eps);
             contenido = contenido.replace("@diagnostico",paciente.diagnostico);
-            contenido = contenido.replace("@cup",paciente.cup);
+            contenido = contenido.replace("@cup",paciente.cup == undefined ? "":paciente.cup);
             
             let d_provider = response.datosProvider[0][0];
             contenido = contenido.replace("@nombres",d_provider.nombres);
@@ -99,7 +99,7 @@ const impirmir = async (req, res) => {
             contenido = contenido.replace("@TipoAfiliacion",paciente.TipoAfiliacion);
             contenido = contenido.replace("@eps",paciente.eps);
             contenido = contenido.replace("@diagnostico",paciente.diagnostico);
-            contenido = contenido.replace("@cup",paciente.cup);
+            contenido = contenido.replace("@cup",paciente.cup == undefined ? "":paciente.cup);
             
             let d_provider = response.datosProvider[0][0];
             contenido = contenido.replace("@nombres",d_provider.nombres);
@@ -137,7 +137,7 @@ const impirmir = async (req, res) => {
             contenido = contenido.replace("@TipoAfiliacion",paciente.TipoAfiliacion);
             contenido = contenido.replace("@eps",paciente.eps);
             contenido = contenido.replace("@diagnostico",paciente.diagnostico);
-            contenido = contenido.replace("@cup",paciente.cup);
+            contenido = contenido.replace("@cup",paciente.cup == undefined ? "":paciente.cup);
             
             let d_provider = response.datosProvider[0][0];
             contenido = contenido.replace("@nombres",d_provider.nombres);
@@ -175,7 +175,7 @@ const impirmir = async (req, res) => {
             contenido = contenido.replace("@TipoAfiliacion",paciente.TipoAfiliacion);
             contenido = contenido.replace("@eps",paciente.eps);
             contenido = contenido.replace("@diagnostico",paciente.diagnostico);
-            contenido = contenido.replace("@cup",paciente.cup);
+            contenido = contenido.replace("@cup",paciente.cup == undefined ? "":paciente.cup);
             
             let d_provider = response.datosProvider[0][0];
             contenido = contenido.replace("@nombres",d_provider.nombres);
