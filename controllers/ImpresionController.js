@@ -67,8 +67,8 @@ const impirmir = async (req, res) => {
             contenido = contenido.replace("@nombres",d_provider.nombres);
             contenido = contenido.replace("@identifier",d_provider.identifier);
             contenido = contenido.replace("@fecha_encuentro",new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
-            contenido = contenido.replace("@logo",d_provider.logo.toString('base64'));
-            contenido = contenido.replace("@firma",d_provider.firma.toString('base64'));
+            contenido = contenido.replace("@logo",d_provider.logo == undefined ? "" : d_provider.logo.toString('base64'));
+            contenido = contenido.replace("@firma",d_provider.firma == undefined ? "" : d_provider.firma.toString('base64'));
             contenido = contenido.replace("@profesiones",d_provider.profesiones);
 
         }
@@ -105,8 +105,8 @@ const impirmir = async (req, res) => {
             contenido = contenido.replace("@nombres",d_provider.nombres);
             contenido = contenido.replace("@identifier",d_provider.identifier);
             contenido = contenido.replace("@fecha_encuentro",new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
-            contenido = contenido.replace("@logo",d_provider.logo.toString('base64'));
-            contenido = contenido.replace("@firma",d_provider.firma.toString('base64'));
+            contenido = contenido.replace("@logo",d_provider.logo == undefined ? "" : d_provider.logo.toString('base64'));
+            contenido = contenido.replace("@firma",d_provider.firma == undefined ? "" : d_provider.firma.toString('base64'));
             contenido = contenido.replace("@profesiones",d_provider.profesiones);
 
         }
@@ -143,8 +143,8 @@ const impirmir = async (req, res) => {
             contenido = contenido.replace("@nombres",d_provider.nombres);
             contenido = contenido.replace("@identifier",d_provider.identifier);
             contenido = contenido.replace("@fecha_encuentro",new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
-            contenido = contenido.replace("@logo",d_provider.logo.toString('base64'));
-            contenido = contenido.replace("@firma",d_provider.firma.toString('base64'));
+            contenido = contenido.replace("@logo",d_provider.logo == undefined ? "" : d_provider.logo.toString('base64'));
+            contenido = contenido.replace("@firma",d_provider.firma == undefined ? "" : d_provider.firma.toString('base64'));
             contenido = contenido.replace("@profesiones",d_provider.profesiones);
 
         }
@@ -181,8 +181,8 @@ const impirmir = async (req, res) => {
             contenido = contenido.replace("@nombres",d_provider.nombres);
             contenido = contenido.replace("@identifier",d_provider.identifier);
             contenido = contenido.replace("@fecha_encuentro",new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
-            contenido = contenido.replace("@logo",d_provider.logo.toString('base64'));
-            contenido = contenido.replace("@firma",d_provider.firma.toString('base64'));
+            contenido = contenido.replace("@logo",d_provider.logo == undefined ? "" : d_provider.logo.toString('base64'));
+            contenido = contenido.replace("@firma",d_provider.firma == undefined ? "" : d_provider.firma.toString('base64'));
             contenido = contenido.replace("@profesiones",d_provider.profesiones);
             
         }
