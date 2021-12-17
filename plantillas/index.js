@@ -182,9 +182,9 @@ module.exports = {
     </html>    
     `
     ),
-    preescripcion:(drug_name,dosage,quality,dose,units,route,frequency,duration) => (`
+    preescripcion:(drug_name,dosage,quality,dose,units,route,frequency,duration,observation) => (`
         <li>
-            <span>${drug_name}, ${dosage},Cantidad: ${quality}, Dosis ${dose} ${units}, ${route}, ${frequency},  ${duration}.</span><br/>
+            <span>${drug_name}, ${dosage},Cantidad: ${quality}, Dosis ${dose} ${units}, ${route}, ${frequency},  ${duration}. ${observation}</span><br/>
         </li>
         `
     ),

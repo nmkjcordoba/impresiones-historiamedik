@@ -40,10 +40,10 @@ const impirmir = async (req, res) => {
                 'PRESCRIPCION',
                 presc.length > 1 && uuid == null?
                 presc.map(e => (
-                    preescripcion(e.drug_name,e.dosage,e.quantity,e.dose,e.units,e.route,e.frequency,e.duration)
+                    preescripcion(e.drug_name,e.dosage,e.quantity,e.dose,e.units,e.route,e.frequency,e.duration,e.observation)
                 ))   
                 :
-                preescripcion(presc[0].drug_name,presc[0].dosage,presc[0].quantity,presc[0].dose,presc[0].units,presc[0].route,presc[0].frequency,presc[0].duration)
+                preescripcion(presc[0].drug_name,presc[0].dosage,presc[0].quantity,presc[0].dose,presc[0].units,presc[0].route,presc[0].frequency,presc[0].duration,presc[0].observation)
                 
             );
 
