@@ -311,7 +311,7 @@ module.exports = {
                         background-position: center;
                     }
                     .container-sign {
-                        width: 90px;
+                        width: 100px;
                         margin-left: auto;
                     }
                     .text-end {
@@ -373,7 +373,7 @@ module.exports = {
                     <table>
                         <tr>
                             <td>
-                                <div style="font-size: 10px;">
+                                <div style="font-size: 12px;">
                                     <div class="virtual-logo"></div>
                                     <p class="doctor-sign"><b>Dr (a): </b><span>@nombres</span></p>
                                     <p><b>N°: </b><span>@identifier</span></p>
