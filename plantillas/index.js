@@ -262,7 +262,7 @@ module.exports = {
         
                     .info-patient > p{
                         display: inline-block;
-                        margin: 0 1rem 0.2rem 0;
+                        margin: 0 1rem 0.1rem 0;
                     }
         
                     .lista {
@@ -311,7 +311,7 @@ module.exports = {
                         background-position: center;
                     }
                     .container-sign {
-                        width: 150px;
+                        width: 90px;
                         margin-left: auto;
                     }
                     .text-end {
@@ -373,12 +373,12 @@ module.exports = {
                     <table>
                         <tr>
                             <td>
-                                <div>
-                                <div class="virtual-logo"></div>
-                                <p class="doctor-sign"><b>Dr (a): </b><span>@nombres</span></p>
-                                <p><b>N°: </b><span>@identifier</span></p>
-                                <p>@profesiones</p>
-                            </div>
+                                <div style="font-size: 10px;">
+                                    <div class="virtual-logo"></div>
+                                    <p class="doctor-sign"><b>Dr (a): </b><span>@nombres</span></p>
+                                    <p><b>N°: </b><span>@identifier</span></p>
+                                    <p>@profesiones</p>
+                                </div>
                             </td>
                             <td >
                                 <div class="container-sign text-end">
