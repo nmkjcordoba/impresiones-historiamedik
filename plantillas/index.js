@@ -340,8 +340,6 @@ module.exports = {
                         </td>
                     </tr>
                 </table>
-        
-                </span>
             </header>
             <main class="main">
                 <hr>
