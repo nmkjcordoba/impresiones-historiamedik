@@ -244,7 +244,7 @@ module.exports = {
                     }
                     .logo {
                         width: 40%;
-                        height: 160px; /* Ajustar imagen */
+                        height: 100px; /* Ajustar imagen */
                         background-image: url("data:image/png;base64,@logo");
                         background-size: contain;
                         background-repeat: no-repeat;
