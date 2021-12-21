@@ -1,4 +1,5 @@
 const ImpresionResolver = require('../resolver/ImpresionResolver');
+var fs = require('fs');
 var { constancia, preescripcion, procedimientos, recomendaciones, incapacidad, historia, plantillaPrincipal} = require('../plantillas');
 const impirmir = async (req, res) => {
     var pdf = require('html-pdf');
@@ -189,7 +190,11 @@ const impirmir = async (req, res) => {
         if(r == "HISTORIA"){
             contenido = historia
         }
+        fs.writeFile("./files/htmlarchivo.html", contenido, (err) => {
+            if (err) throw err;
         
+            console.log("The file was succesfully saved!");
+        }); 
         pdf.create(contenido).toFile(`./files/netmedik${enc == 0 ? cita : enc}.pdf`, function(err, resp) {
             if (err){
                 console.log(err);
