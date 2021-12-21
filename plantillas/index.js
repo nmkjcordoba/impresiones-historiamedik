@@ -304,8 +304,8 @@ module.exports = {
         
                     .virtual-logo {
                         background-image: url("data:image/png;base64,@firma");
-                        width: 100px;
-                        height: 45px;
+                        width: 150px;
+                        height: 70px;
                         background-size: contain;
                         background-repeat: no-repeat;
                         background-position: center;
