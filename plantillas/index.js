@@ -333,11 +333,12 @@ module.exports = {
             <header class="header">
                 <table>
                     <tr>
-                        <td class="content"></td>
-                        <td class="logo"></td>
                         <td class="content info-factura">
                             <p><b>Fecha: </b> @fecha</p>
                         </td>
+                    </tr>
+                    <tr>
+                        <td class="logo"></td>
                     </tr>
                 </table>
             </header>
