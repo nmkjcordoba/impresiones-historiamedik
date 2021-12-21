@@ -31,7 +31,7 @@ const impirmir = async (req, res) => {
             contenido = contenido.replace("@cita_Hora",_constancia.cita_Hora);
             contenido = contenido.replace("@cita_Tipo",_constancia.cita_Tipo);
             contenido = contenido.replace("@fecha_actual",new Date().toLocaleDateString("en-US").toString());
-            //console.log(contenido)
+            
         }
         if(r == "PRESCRIPCION"){
             let response = await fn_preescripcion(pac,enc,uuid,provider_id);
@@ -42,12 +42,11 @@ const impirmir = async (req, res) => {
                 presc.length > 1 && uuid == null?
                 presc.map(e => (
                     preescripcion(e.drug_name,e.dosage,e.quantity,e.dose,e.units,e.route,e.frequency,e.duration,e.observation)
-                ))   
+                )).join("")  
                 :
                 preescripcion(presc[0].drug_name,presc[0].dosage,presc[0].quantity,presc[0].dose,presc[0].units,presc[0].route,presc[0].frequency,presc[0].duration,presc[0].observation)
                 
             );
-
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
@@ -82,7 +81,7 @@ const impirmir = async (req, res) => {
                 incap > 1 && uuid == null?
                 incap.map(e => (
                     incapacidad(e.description,e.start_date,e.auto_expire_date,e.Dias,e.instructions)    
-                ))
+                )).join("")
                 :
                 incapacidad(incap[0].description,incap[0].start_date,incap[0].auto_expire_date,incap[0].Dias,incap[0].instructions)
             )
@@ -119,11 +118,12 @@ const impirmir = async (req, res) => {
                 'Ordenes',
                 proced.length > 1 && uuid == null?
                 proced.map(e =>(
-                    procedimientos(e.Descripcion_orden,e.Instrucciones)    
-                ))
+                    procedimientos(e.Descripcion_orden,e.Instrucciones)
+                )).join("")
                 :
                 procedimientos(proced[0].Descripcion_orden,proced[0].Instrucciones)
             )
+            
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
@@ -158,10 +158,11 @@ const impirmir = async (req, res) => {
                 recom.length > 1 && uuid == null?
                 recom.map(e => (
                     recomendaciones(e.Descripcion_orden,e.Instrucciones)    
-                ))
+                )).join("")
                 :
                 recomendaciones(recom[0].Descripcion_orden,recom[0].Instrucciones)
             );
+            
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
@@ -194,7 +195,7 @@ const impirmir = async (req, res) => {
             if (err) throw err;
         
             console.log("The file was succesfully saved!");
-        }); */
+        });*/ 
         pdf.create(contenido).toFile(`./files/netmedik${enc == 0 ? cita : enc}.pdf`, function(err, resp) {
             if (err){
                 console.log(err);
