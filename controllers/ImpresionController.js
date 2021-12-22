@@ -195,7 +195,7 @@ const impirmir = async (req, res) => {
             if (err) throw err;
         
             console.log("The file was succesfully saved!");
-        });*/ 
+        });*/
         pdf.create(contenido).toFile(`./files/netmedik${enc == 0 ? cita : enc}.pdf`, function(err, resp) {
             if (err){
                 console.log(err);

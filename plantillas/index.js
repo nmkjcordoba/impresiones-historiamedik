@@ -22,12 +22,12 @@ module.exports = {
                 table {
                     width: 100%;
                 }
-                .header tr > *{
-                    width: 33.33%;
+                .header {
+                    width: 50%;
+                    text-align: center;
+                    margin: auto;
                 }
-                .header .info-factura {
-                    text-align: end;
-                }
+                
                 .logo {
                     width: 150px;
                     height: 75px;
@@ -36,6 +36,7 @@ module.exports = {
                     background-size: contain;
                     background-repeat: no-repeat;
                     background-position: center;
+                    margin: auto;
                 }
 
                 hr {
@@ -113,18 +114,8 @@ module.exports = {
     </head>
     <body>
         <header class="header">
-            <table>
-                <tr>
-                    <td class="content"></td>
-                    <td class="logo"></td>
-                    <td class="content info-factura"></td>
-                </tr>
-            </table>
-            <span class="content"></span>
-            <span class="logo"></span>
-            <span class="content info-factura">
-                
-            </span>
+            <div> <p><b>Fecha: </b> ___________</p></div>
+            <div class="logo"></div>
         </header>
         <main class="main">
             <hr>
@@ -220,12 +211,13 @@ module.exports = {
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>Factura PDF</title>
+            <title>Ordenes PDF</title>
             <style>
                     body {
                         padding: 1rem;
                         box-sizing:border-box;
                         font-size: 8pt;
+                        font-family:sans-serif;
                     }
                         
                     *,
@@ -236,35 +228,35 @@ module.exports = {
                     table {
                         width: 100%;
                     }
-                    .header tr > .content{
-                        width: 30%;
+                    .header {
+                        width: 50%;
+                        text-align: center;
+                        margin: auto;
                     }
-                    .header .info-factura {
-                        text-align: end;
-                    }
+                    
                     .logo {
-                        /*width: 40%;*/
-                        height: 70px; /* Ajustar imagen */
+                        width: 275px;
+                        height: 100px;
                         background-image: url("data:image/png;base64,@logo");
                         background-size: contain;
                         background-repeat: no-repeat;
                         background-position: center;
+                        margin: auto;
                     }
                     hr {
                         height: 1px;
                         background-color: rgb(156, 156, 156);
                     }
                     h3 {
-                        padding-bottom: 0.5rem;
                         border-bottom: 3px solid #000;
                     }
         
         
                     .info-patient > p{
                         display: inline-block;
-                        margin: 0 1rem 0.1rem 0;
+                        margin: 0 0.5rem 0rem 0;
                     }
-        
+                    
                     .lista {
                         border-bottom: 3px solid black;
                     }
@@ -331,19 +323,11 @@ module.exports = {
         </head>
         <body>
             <header class="header">
-                <table>
-                    <tr>
-                        <td class="content info-factura">
-                            <p><b>Fecha: </b> @fecha</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="logo"></td>
-                    </tr>
-                </table>
+                <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
+                <div class="logo"></div>
             </header>
             <main class="main">
-                <hr>
+                
                 
                 <h3>Datos del Paciente</h3>
                 <div class="info-patient">
@@ -360,7 +344,7 @@ module.exports = {
                     <p><b>Diagnostico: </b> @diagnostico </p>
                     <p><b>CUP: </b> @cup</p>
                 </div>
-                <hr>
+                
                 <h3>${tipoOrden}</h3>
                 <div class="lista">
                     <ul>
