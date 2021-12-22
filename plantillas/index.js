@@ -229,13 +229,13 @@ module.exports = {
                         width: 100%;
                     }
                     .header {
-                        width: 50%;
+                        /*width: 50%;*/
                         text-align: center;
                         margin: auto;
                     }
                     
                     .logo {
-                        width: 275px;
+                        width: 850px;
                         height: 100px;
                         background-image: url("data:image/png;base64,@logo");
                         background-size: contain;
@@ -324,7 +324,12 @@ module.exports = {
         <body>
             <header class="header">
                 <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
-                <div class="logo"></div>
+                <table>
+                    <tr>
+                        <td class="logo"></td>
+                    </tr>
+                </table>
+                <!--<div class="logo"></div>-->
             </header>
             <main class="main">
                 
