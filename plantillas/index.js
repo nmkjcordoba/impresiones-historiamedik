@@ -186,12 +186,26 @@ module.exports = {
         </li>
         `
     ),
-    procedimientos:(descripcion_orden,instrucciones) => (`
-        <li>
-            <span>${descripcion_orden},Instrucciones: ${instrucciones}</span>
-        </li>
-        `
-    ),
+    procedimientos:(descripcion_orden,instrucciones,index,indexDivido) => {
+        console.log(indexDivido)
+        return(
+            `
+            <li>
+                <span>${descripcion_orden},Instrucciones: ${instrucciones}</span>
+                ${indexDivido.includes(index) ? `<div class="pagebreak"> </div>
+                    <div style="text-align: center; margin: 10px auto;">
+                        <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
+                        <table>
+                            <tr>
+                                <td class="logo"></td>
+                            </tr>
+                        </table>
+                    </div>
+                `: ''}
+            </li>
+            `
+        )
+    },
     recomendaciones:(descripcion_orden,instrucciones) => (`
         <li>
             <span>${descripcion_orden}, Intrucciones: ${instrucciones}.</span>
@@ -318,7 +332,10 @@ module.exports = {
                     .content3 {
                         width: 15%;
                     }
-        
+                    .pagebreak { 
+                        page-break-before: always; 
+                        margin-button:30px;
+                    } /* page-break-after works, as well */
             </style>
         </head>
         <body>
@@ -357,7 +374,7 @@ module.exports = {
                     </ul>
                 </div>
                 
-                <div class="footer-factura">
+                <div class="footer-factura" id="pageFooter">
                     <table>
                         <tr>
                             <td>

@@ -113,19 +113,28 @@ const impirmir = async (req, res) => {
         if(r == "PROCEDIMIENTOS"){
             let response = await fn_procedimientos(pac,enc,uuid,provider_id)
             let proced = response.reporteProcedimientos[0];
+            console.log("haj")
+            var htmlOrden = [];
+            for (let index = 0; index < proced.length; index++) {
+                const e = proced[index];
+                htmlOrden.push(procedimientos(e.Descripcion_orden,e.Instrucciones,index,[]).replace("<li>","").replace("</li>","").replace("<span>","").replace("</span>","").replace(/\s+/g, " "))
+                
+            }
+            console.log(htmlOrden)
+            console.log(paginaDividida(htmlOrden));
             contenido = 
             plantillaPrincipal(
                 'Ordenes',
                 proced.length > 1 && uuid == null?
-                proced.map(e =>(
-                    procedimientos(e.Descripcion_orden,e.Instrucciones)
+                proced.map((e,index) =>(
+                    procedimientos(e.Descripcion_orden,e.Instrucciones,index,paginaDividida(htmlOrden))
                 )).join("")
                 :
                 procedimientos(proced[0].Descripcion_orden,proced[0].Instrucciones)
             )
             
             let paciente = response.datosPaciente[0][0];            
-            contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
+            contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
             contenido = contenido.replace("@tipo_identificacion",paciente.tipo_identificacion);
             contenido = contenido.replace("@identificacion",paciente.identificacion);
@@ -191,12 +200,13 @@ const impirmir = async (req, res) => {
         if(r == "HISTORIA"){
             contenido = historia
         }
-        /*fs.writeFile("./files/htmlarchivo.html", contenido, (err) => {
+        fs.writeFile("./files/htmlarchivo.html", contenido, (err) => {
             if (err) throw err;
         
             console.log("The file was succesfully saved!");
-        });*/
-        pdf.create(contenido).toFile(`./files/netmedik${enc == 0 ? cita : enc}.pdf`, function(err, resp) {
+        });
+        const config = {"footer":{"height": "55mm"}}
+        pdf.create(contenido,config).toFile(`./files/netmedik${enc == 0 ? cita : enc}.pdf`, function(err, resp) {
             if (err){
                 console.log(err);
                
@@ -263,6 +273,21 @@ const fn_recomendaciones = async (pac, enc, uuid, provider_id) => {
 const fn_constancia = async (cita) => {
     const constancia = await ImpresionResolver.sp_reporte_constanciaservicio(cita);
     return {constancia}
+}
+
+const paginaDividida = (html) => {
+    var renglones = 0
+    var dividirPagina = []
+    for (let index = 0; index < html.length; index++) {
+        const ele = html[index];
+        renglones += Math.ceil((ele.length / 65));
+        if(renglones > 26){
+            renglones = 1;
+            dividirPagina.push(index-1)
+        }
+
+    }
+    return dividirPagina;
 }
 
 module.exports = {
