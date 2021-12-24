@@ -216,7 +216,7 @@ module.exports = {
                     body {
                         padding: 1rem;
                         box-sizing:border-box;
-                        font-size: 16px;
+                        font-size: 8pt;
                         font-family: Arial, sans-serif;
                     }
                         
