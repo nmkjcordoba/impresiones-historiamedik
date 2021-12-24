@@ -319,6 +319,7 @@ module.exports = {
                     .container-sign {
                         width: 100px;
                         margin-left: auto;
+                        font-size:10px;
                     }
                     .text-end {
                         text-align: end;
