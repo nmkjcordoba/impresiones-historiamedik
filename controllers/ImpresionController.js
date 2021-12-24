@@ -120,8 +120,8 @@ const impirmir = async (req, res) => {
                 htmlOrden.push(procedimientos(e.Descripcion_orden,e.Instrucciones,index,[]).replace("<li>","").replace("</li>","").replace("<span>","").replace("</span>","").replace(/\s+/g, " "))
                 
             }
-            console.log(htmlOrden)
-            console.log(paginaDividida(htmlOrden));
+            //console.log(htmlOrden)
+            //console.log(paginaDividida(htmlOrden));
             contenido = 
             plantillaPrincipal(
                 'Ordenes',
@@ -205,7 +205,7 @@ const impirmir = async (req, res) => {
         
             console.log("The file was succesfully saved!");
         });
-        const config = {"footer":{"height": "55mm"}}
+        const config = {"footer":{"height": "60mm"}}
         pdf.create(contenido,config).toFile(`./files/netmedik${enc == 0 ? cita : enc}.pdf`, function(err, resp) {
             if (err){
                 console.log(err);
