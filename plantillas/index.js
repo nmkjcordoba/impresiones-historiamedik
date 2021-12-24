@@ -217,7 +217,7 @@ module.exports = {
                         padding: 1rem;
                         box-sizing:border-box;
                         font-size: 8pt;
-                        font-family:sans-serif;
+                        font-family: Arial, sans-serif;
                     }
                         
                     *,
