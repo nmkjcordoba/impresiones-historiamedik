@@ -379,7 +379,7 @@ module.exports = {
                     <table>
                         <tr>
                             <td>
-                                <div style="font-size: 12px;">
+                                <div style="font-size: 11px;">
                                     <div class="virtual-logo"></div>
                                     <p class="doctor-sign"><b>Dr (a): </b><span>@nombres</span></p>
                                     <p><b>N°: </b><span>@identifier</span></p>
@@ -390,7 +390,7 @@ module.exports = {
                                 <div class="container-sign text-end">
                                     <p>Firma Virtual</p>
                                     <div class="firma-logo"></div>
-                                    <p>@fecha_encuentro</p>
+                                    <p>@f_encuentro</p>
                                 </div>
                             </td>   
                         </tr>
