@@ -36,19 +36,27 @@ const impirmir = async (req, res) => {
         if(r == "PRESCRIPCION"){
             let response = await fn_preescripcion(pac,enc,uuid,provider_id);
             let presc = response.reportePreescripcion[0];
+
+            var htmlOrden = [];
+            for (let index = 0; index < presc.length; index++) {
+                const e = presc[index];
+                htmlOrden.push(preescripcion(e.drug_name,e.dosage,e.quantity,e.dose,e.units,e.route,e.frequency,e.duration,e.observation,index,[]).replace("<li>","").replace("</li>","").replace("<span>","").replace("</span>","").replace(/\s+/g, " "))
+                
+            }
+
             contenido =  
             plantillaPrincipal(
                 'PRESCRIPCION',
                 presc.length > 1 && uuid == null?
-                presc.map(e => (
-                    preescripcion(e.drug_name,e.dosage,e.quantity,e.dose,e.units,e.route,e.frequency,e.duration,e.observation)
+                presc.map((e,index) => (
+                    preescripcion(e.drug_name,e.dosage,e.quantity,e.dose,e.units,e.route,e.frequency,e.duration,e.observation,index,paginaDividida(htmlOrden))
                 )).join("")  
                 :
-                preescripcion(presc[0].drug_name,presc[0].dosage,presc[0].quantity,presc[0].dose,presc[0].units,presc[0].route,presc[0].frequency,presc[0].duration,presc[0].observation)
+                preescripcion(presc[0].drug_name,presc[0].dosage,presc[0].quantity,presc[0].dose,presc[0].units,presc[0].route,presc[0].frequency,presc[0].duration,presc[0].observation,99999,[])
                 
             );
             let paciente = response.datosPaciente[0][0];            
-            contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
+            contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
             contenido = contenido.replace("@tipo_identificacion",paciente.tipo_identificacion);
             contenido = contenido.replace("@identificacion",paciente.identificacion);
@@ -66,7 +74,7 @@ const impirmir = async (req, res) => {
             let d_provider = response.datosProvider[0][0];
             contenido = contenido.replace("@nombres",d_provider.nombres);
             contenido = contenido.replace("@identifier",d_provider.identifier);
-            contenido = contenido.replace("@fecha_encuentro",new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
+            contenido = contenido.replace(/@f_encuentro/g,new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
             contenido = contenido.replace("@logo",d_provider.logo == undefined ? "" : d_provider.logo.toString('base64'));
             contenido = contenido.replace("@firma",d_provider.firma == undefined ? "" : d_provider.firma.toString('base64'));
             contenido = contenido.replace("@profesiones",d_provider.profesiones);
@@ -75,18 +83,26 @@ const impirmir = async (req, res) => {
         if(r == "INCAPACIDAD"){
             let response = await fn_incapacidad(pac,enc,uuid,provider_id)
             let incap = response.reporteIncapacidad[0];
+
+            var htmlOrden = [];
+            for (let index = 0; index < incap.length; index++) {
+                const e = incap[index];
+                htmlOrden.push(incapacidad(e.description,e.start_date,e.auto_expire_date,e.Dias,e.instructions,index,[]).replace("<li>","").replace("</li>","").replace("<span>","").replace("</span>","").replace(/\s+/g, " "))
+                
+            }
+
             contenido = 
             plantillaPrincipal(
                 'Orden Incapacidad',
                 incap > 1 && uuid == null?
-                incap.map(e => (
-                    incapacidad(e.description,e.start_date,e.auto_expire_date,e.Dias,e.instructions)    
+                incap.map((e,index) => (
+                    incapacidad(e.description,e.start_date,e.auto_expire_date,e.Dias,e.instructions,index,paginaDividida(htmlOrden))    
                 )).join("")
                 :
-                incapacidad(incap[0].description,incap[0].start_date,incap[0].auto_expire_date,incap[0].Dias,incap[0].instructions)
+                incapacidad(incap[0].description,incap[0].start_date,incap[0].auto_expire_date,incap[0].Dias,incap[0].instructions,9999,[])
             )
             let paciente = response.datosPaciente[0][0];            
-            contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
+            contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
             contenido = contenido.replace("@tipo_identificacion",paciente.tipo_identificacion);
             contenido = contenido.replace("@identificacion",paciente.identificacion);
@@ -104,7 +120,7 @@ const impirmir = async (req, res) => {
             let d_provider = response.datosProvider[0][0];
             contenido = contenido.replace("@nombres",d_provider.nombres);
             contenido = contenido.replace("@identifier",d_provider.identifier);
-            contenido = contenido.replace("@fecha_encuentro",new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
+            contenido = contenido.replace(/@f_encuentro/g,new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
             contenido = contenido.replace("@logo",d_provider.logo == undefined ? "" : d_provider.logo.toString('base64'));
             contenido = contenido.replace("@firma",d_provider.firma == undefined ? "" : d_provider.firma.toString('base64'));
             contenido = contenido.replace("@profesiones",d_provider.profesiones);
@@ -113,15 +129,14 @@ const impirmir = async (req, res) => {
         if(r == "PROCEDIMIENTOS"){
             let response = await fn_procedimientos(pac,enc,uuid,provider_id)
             let proced = response.reporteProcedimientos[0];
-            console.log("haj")
+            
             var htmlOrden = [];
             for (let index = 0; index < proced.length; index++) {
                 const e = proced[index];
                 htmlOrden.push(procedimientos(e.Descripcion_orden,e.Instrucciones,index,[]).replace("<li>","").replace("</li>","").replace("<span>","").replace("</span>","").replace(/\s+/g, " "))
                 
             }
-            //console.log(htmlOrden)
-            //console.log(paginaDividida(htmlOrden));
+
             contenido = 
             plantillaPrincipal(
                 'Ordenes',
@@ -130,7 +145,7 @@ const impirmir = async (req, res) => {
                     procedimientos(e.Descripcion_orden,e.Instrucciones,index,paginaDividida(htmlOrden))
                 )).join("")
                 :
-                procedimientos(proced[0].Descripcion_orden,proced[0].Instrucciones)
+                procedimientos(proced[0].Descripcion_orden,proced[0].Instrucciones,9999,[])
             )
             
             let paciente = response.datosPaciente[0][0];            
@@ -161,19 +176,27 @@ const impirmir = async (req, res) => {
         if(r == "RECOMENDACIONES"){
             let response = await fn_recomendaciones(pac,enc,uuid,provider_id)
             let recom = response.reporteRecomendaciones[0];
+
+            var htmlOrden = [];
+            for (let index = 0; index < recom.length; index++) {
+                const e = recom[index];
+                htmlOrden.push(recomendaciones(e.Descripcion_orden,e.Instrucciones,index,[]).replace("<li>","").replace("</li>","").replace("<span>","").replace("</span>","").replace(/\s+/g, " "))
+                
+            }
+
             contenido = 
             plantillaPrincipal(
                 'Orden de Recomendaciones',
                 recom.length > 1 && uuid == null?
-                recom.map(e => (
-                    recomendaciones(e.Descripcion_orden,e.Instrucciones)    
+                recom.map((e,index) => (
+                    recomendaciones(e.Descripcion_orden,e.Instrucciones,index,paginaDividida(htmlOrden))    
                 )).join("")
                 :
-                recomendaciones(recom[0].Descripcion_orden,recom[0].Instrucciones)
+                recomendaciones(recom[0].Descripcion_orden,recom[0].Instrucciones,9999,[])
             );
             
             let paciente = response.datosPaciente[0][0];            
-            contenido = contenido.replace("@fecha",new Date().toLocaleDateString("en-US").toString());
+            contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
             contenido = contenido.replace("@tipo_identificacion",paciente.tipo_identificacion);
             contenido = contenido.replace("@identificacion",paciente.identificacion);
@@ -191,7 +214,7 @@ const impirmir = async (req, res) => {
             let d_provider = response.datosProvider[0][0];
             contenido = contenido.replace("@nombres",d_provider.nombres);
             contenido = contenido.replace("@identifier",d_provider.identifier);
-            contenido = contenido.replace("@fecha_encuentro",new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
+            contenido = contenido.replace(/@f_encuentro/g,new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
             contenido = contenido.replace("@logo",d_provider.logo == undefined ? "" : d_provider.logo.toString('base64'));
             contenido = contenido.replace("@firma",d_provider.firma == undefined ? "" : d_provider.firma.toString('base64'));
             contenido = contenido.replace("@profesiones",d_provider.profesiones);

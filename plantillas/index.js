@@ -173,21 +173,41 @@ module.exports = {
     </html>    
     `
     ),
-    preescripcion:(drug_name,dosage,quality,dose,units,route,frequency,duration,observation) => (`
+    preescripcion:(drug_name,dosage,quality,dose,units,route,frequency,duration,observation,index,indexDivido) => (`
         <li>
             <span>${drug_name}, ${dosage},Cantidad: ${quality}, Dosis ${dose} ${units}, ${route}, ${frequency},  ${duration}. ${observation}</span>
+            ${indexDivido.includes(index) ? `<div class="pagebreak"> </div>
+                <div style="text-align: center; margin: 10px auto;">
+                    <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
+                    <table>
+                        <tr>
+                            <td class="logo"></td>
+                        </tr>
+                    </table>
+                </div>
+            `: ''}
         </li>
         `
     ),
-    incapacidad:(incapacidad,fecha_incio,fecha_fin,dias,prorroga) => (`
+    incapacidad:(incapacidad,fecha_incio,fecha_fin,dias,prorroga,index,indexDivido) => (`
         <li>
             <span>${incapacidad}, Fecha de inicio: ${fecha_incio}, Fecha final: ${fecha_fin}, Días: ${dias}</span>
             <span>Indicaciones: ${prorroga}</span>
+            ${indexDivido.includes(index) ? `<div class="pagebreak"> </div>
+                <div style="text-align: center; margin: 10px auto;">
+                    <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
+                    <table>
+                        <tr>
+                            <td class="logo"></td>
+                        </tr>
+                    </table>
+                </div>
+            `: ''}
         </li>
         `
     ),
     procedimientos:(descripcion_orden,instrucciones,index,indexDivido) => {
-        console.log(indexDivido)
+        
         return(
             `
             <li>
@@ -206,9 +226,19 @@ module.exports = {
             `
         )
     },
-    recomendaciones:(descripcion_orden,instrucciones) => (`
+    recomendaciones:(descripcion_orden,instrucciones,index,indexDivido) => (`
         <li>
             <span>${descripcion_orden}, Intrucciones: ${instrucciones}.</span>
+            ${indexDivido.includes(index) ? `<div class="pagebreak"> </div>
+                <div style="text-align: center; margin: 10px auto;">
+                    <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
+                    <table>
+                        <tr>
+                            <td class="logo"></td>
+                        </tr>
+                    </table>
+                </div>
+            `: ''}
         </li>
         `
     ),
