@@ -53,7 +53,7 @@ const impirmir = async (req, res) => {
                 )).join("")  
                 :
                 preescripcion(presc[0].drug_name,presc[0].dosage,presc[0].quantity,presc[0].dose,presc[0].units,presc[0].route,presc[0].frequency,presc[0].duration,presc[0].observation,99999,[])
-                
+                ,presc.length > 1 ? 1 : 0
             );
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
@@ -100,6 +100,7 @@ const impirmir = async (req, res) => {
                 )).join("")
                 :
                 incapacidad(incap[0].description,incap[0].start_date,incap[0].auto_expire_date,incap[0].Dias,incap[0].instructions,9999,[])
+                ,incap > 1 ? 1 : 0
             )
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
@@ -146,6 +147,7 @@ const impirmir = async (req, res) => {
                 )).join("")
                 :
                 procedimientos(proced[0].Descripcion_orden,proced[0].Instrucciones,9999,[])
+                ,proced.length > 1 ? 1:0
             )
             
             let paciente = response.datosPaciente[0][0];            
@@ -193,6 +195,7 @@ const impirmir = async (req, res) => {
                 )).join("")
                 :
                 recomendaciones(recom[0].Descripcion_orden,recom[0].Instrucciones,9999,[])
+                ,recom.length > 1 ? 1 :0
             );
             
             let paciente = response.datosPaciente[0][0];            

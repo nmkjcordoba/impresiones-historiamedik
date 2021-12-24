@@ -249,7 +249,7 @@ module.exports = {
         </html>`
     },
 
-    plantillaPrincipal:(tipoOrden,orden) => (
+    plantillaPrincipal:(tipoOrden,orden,imprimirTodo) => (
         `
         <!DOCTYPE html>
         <html lang="en">
@@ -405,7 +405,7 @@ module.exports = {
                     </ul>
                 </div>
                 
-                <div class="footer-factura" id="pageFooter">
+                <div class="footer-factura" ${imprimirTodo == 1 ? 'id="pageFooter"':""} >
                     <table>
                         <tr>
                             <td>
