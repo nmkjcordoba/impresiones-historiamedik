@@ -52,8 +52,8 @@ const impirmir = async (req, res) => {
                     preescripcion(e.drug_name,e.dosage,e.quantity,e.dose,e.units,e.route,e.frequency,e.duration,e.observation,index,paginaDividida(htmlOrden))
                 )).join("")  
                 :
-                preescripcion(presc[0].drug_name,presc[0].dosage,presc[0].quantity,presc[0].dose,presc[0].units,presc[0].route,presc[0].frequency,presc[0].duration,presc[0].observation,99999,[])
-                ,presc.length > 1 ? 1 : 0
+                preescripcion(presc[presc.length-1].drug_name,presc[presc.length-1].dosage,presc[presc.length-1].quantity,presc[presc.length-1].dose,presc[presc.length-1].units,presc[presc.length-1].route,presc[presc.length-1].frequency,presc[presc.length-1].duration,presc[presc.length-1].observation,99999,[])
+                ,uuid == null ? 1 : 0
             );
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
@@ -94,13 +94,13 @@ const impirmir = async (req, res) => {
             contenido = 
             plantillaPrincipal(
                 'Orden Incapacidad',
-                incap > 1 && uuid == null?
+                incap.length > 1 && uuid == null?
                 incap.map((e,index) => (
                     incapacidad(e.description,e.start_date,e.auto_expire_date,e.Dias,e.instructions,index,paginaDividida(htmlOrden))    
                 )).join("")
                 :
-                incapacidad(incap[0].description,incap[0].start_date,incap[0].auto_expire_date,incap[0].Dias,incap[0].instructions,9999,[])
-                ,incap > 1 ? 1 : 0
+                incapacidad(incap[incap.length-1].description,incap[incap.length-1].start_date,incap[incap.length-1].auto_expire_date,incap[incap.length-1].Dias,incap[incap.length-1].instructions,9999,[])
+                ,uuid == null ? 1 : 0
             )
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
@@ -146,8 +146,8 @@ const impirmir = async (req, res) => {
                     procedimientos(e.Descripcion_orden,e.Instrucciones,index,paginaDividida(htmlOrden))
                 )).join("")
                 :
-                procedimientos(proced[0].Descripcion_orden,proced[0].Instrucciones,9999,[])
-                ,proced.length > 1 ? 1:0
+                procedimientos(proced[proced.length-1].Descripcion_orden,proced[proced.length-1].Instrucciones,9999,[])
+                ,uuid == null ? 1:0
             )
             
             let paciente = response.datosPaciente[0][0];            
@@ -194,8 +194,8 @@ const impirmir = async (req, res) => {
                     recomendaciones(e.Descripcion_orden,e.Instrucciones,index,paginaDividida(htmlOrden))    
                 )).join("")
                 :
-                recomendaciones(recom[0].Descripcion_orden,recom[0].Instrucciones,9999,[])
-                ,recom.length > 1 ? 1 :0
+                recomendaciones(recom[recom.length-1].Descripcion_orden,recom[recom.length-1].Instrucciones,9999,[])
+                ,uuid == null ? 1 :0
             );
             
             let paciente = response.datosPaciente[0][0];            
@@ -250,7 +250,7 @@ const impirmir = async (req, res) => {
 
 const fn_preescripcion = async (pac, enc, uuid, provider_id) => {
     const datosProvider = await ImpresionResolver.sp_reporte_datos_provider(provider_id,enc);
-    const reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(enc,null,pac);
+    const reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(enc,uuid,pac);
     /*if(uuid != null){
         reportePreescripcion = await ImpresionResolver.sp_reporte_prescripcion(null,uuid,pac);
     }*/
