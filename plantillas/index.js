@@ -124,8 +124,17 @@ module.exports = {
             <div class="logo"></div>-->
         </header>
         <main class="main">
-            <hr>
-            
+                
+                <h3>Datos del Paciente</h3>
+                <div class="info-patient">
+                    <p><b>Nombre: </b><span>@pat_Name</span></p>
+                    <p><b>Documento: </b> @pt_TipoId @pt_Identificacion</p>
+                    <p><b>Telefono: </b> @pat_Phone</p>
+                    <p><b>Dirección: </b> @pat_Address</p>
+                    <p><b>EPS: </b> @pat_Eps</p>
+                    <p><b>Fecha y hora de prestacion: </b> @cita_Date @cita_Hora horas</p>
+                </div>
+            <!--
             <h3>Datos del Paciente</h3>
             <div class="info-patient">
                 <table>
@@ -145,7 +154,7 @@ module.exports = {
                     </tr>
 
                 </table>
-            </div>
+            </div>-->
             <hr>
             <h3>Contancia de prestación de servicio</h3>
             
