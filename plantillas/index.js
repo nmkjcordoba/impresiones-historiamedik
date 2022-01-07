@@ -50,8 +50,9 @@ module.exports = {
                     display: block;
                 } 
 
-                .info-patient tr > *{
-                    width: 33.33%;
+                .info-patient > p{
+                    display: inline-block;
+                    margin: 0 0.5rem 0rem 0;
                 }
 
                 .table {
