@@ -115,7 +115,6 @@ module.exports = {
     </head>
     <body>
         <header class="header">
-                <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
                 <table>
                     <tr>
                         <td class="logo"></td>

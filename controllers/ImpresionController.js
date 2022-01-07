@@ -226,11 +226,11 @@ const impirmir = async (req, res) => {
         if(r == "HISTORIA"){
             contenido = historia
         }
-        fs.writeFile("./files/htmlarchivo.html", contenido, (err) => {
+        /*fs.writeFile("./files/htmlarchivo.html", contenido, (err) => {
             if (err) throw err;
         
             console.log("The file was succesfully saved!");
-        });
+        });*/
         const config = {"footer":{"height": "60mm"}}
         pdf.create(contenido,config).toFile(`./files/netmedik${enc == 0 ? cita : enc}.pdf`, function(err, resp) {
             if (err){
