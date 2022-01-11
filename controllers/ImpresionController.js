@@ -53,7 +53,7 @@ const impirmir = async (req, res) => {
                 )).join("")  
                 :
                 preescripcion(presc[presc.length-1].drug_name,presc[presc.length-1].dosage,presc[presc.length-1].quantity,presc[presc.length-1].dose,presc[presc.length-1].units,presc[presc.length-1].route,presc[presc.length-1].frequency,presc[presc.length-1].duration,presc[presc.length-1].observation,99999,[])
-                ,uuid == null ? 1 : 0
+                ,uuid == null && FirmaLogoMitad(htmlOrden) ? 1 : 0
             );
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
@@ -100,7 +100,7 @@ const impirmir = async (req, res) => {
                 )).join("")
                 :
                 incapacidad(incap[incap.length-1].description,incap[incap.length-1].start_date,incap[incap.length-1].auto_expire_date,incap[incap.length-1].Dias,incap[incap.length-1].instructions,9999,[])
-                ,uuid == null ? 1 : 0
+                ,uuid == null && FirmaLogoMitad(htmlOrden) ? 1 : 0
             )
             let paciente = response.datosPaciente[0][0];            
             contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
@@ -147,7 +147,7 @@ const impirmir = async (req, res) => {
                 )).join("")
                 :
                 procedimientos(proced[proced.length-1].Descripcion_orden,proced[proced.length-1].Instrucciones,9999,[])
-                ,uuid == null ? 1:0
+                ,uuid == null && FirmaLogoMitad(htmlOrden) ? 1:0
             )
             
             let paciente = response.datosPaciente[0][0];            
@@ -195,7 +195,7 @@ const impirmir = async (req, res) => {
                 )).join("")
                 :
                 recomendaciones(recom[recom.length-1].Descripcion_orden,recom[recom.length-1].Instrucciones,9999,[])
-                ,uuid == null ? 1 :0
+                ,uuid == null && FirmaLogoMitad(htmlOrden) ? 1 :0
             );
             
             let paciente = response.datosPaciente[0][0];            
@@ -310,6 +310,20 @@ const paginaDividida = (html) => {
         if(renglones > 26){
             renglones = 1;
             dividirPagina.push(index-1)
+        }
+
+    }
+    return dividirPagina;
+}
+
+const FirmaLogoMitad = (html) => {
+    var renglones = 0
+    var dividirPagina = false;
+    for (let index = 0; index < html.length; index++) {
+        const ele = html[index];
+        renglones += Math.ceil((ele.length / 65));
+        if(renglones > 15){
+            dividirPagina = true
         }
 
     }
