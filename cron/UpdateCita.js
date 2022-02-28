@@ -3,7 +3,7 @@ const { ActualizarCita } = require('../controllers');
 
 
 
-cron.schedule(' */60 * * * *', async () => {
+cron.schedule(' */240 * * * *', async () => {
     try {
         console.log("ejecutando")
         await ActualizarCita.UpdateTipoPacRIPS();
