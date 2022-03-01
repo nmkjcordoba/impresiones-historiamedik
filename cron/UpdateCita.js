@@ -5,7 +5,8 @@ const { ActualizarCita } = require('../controllers');
 
 cron.schedule(' */240 * * * *', async () => {
     try {
-        console.log("ejecutando")
+        console.log("ejecutando a las :");
+        console.log(new Date().toISOString())
         await ActualizarCita.UpdateTipoPacRIPS();
         console.log("termina")
     } catch (error) {
