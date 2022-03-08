@@ -16,6 +16,10 @@ module.exports = {
 
     updateCita:(id_cita,id_tipoafiliado) => sequelize.query(
         `update cita set id_tipoafiliado = ${id_tipoafiliado} where id_cita=${id_cita}`
+    ),
+
+    insertAnexo:(pac,user_id,file,nombrearchivo,palabracortada,nombre_estudio,tipo_estudio,detalle,type) => sequelize.query(
+        `EXEC sp_insert_documents2 "${pac}",0,${user_id},null,"${type}",${file},"${nombrearchivo}","${palabracortada}","${nombre_estudio}","${tipo_estudio}","${detalle}"`
     )
   
 }
