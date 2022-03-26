@@ -20,6 +20,14 @@ module.exports = {
 
     insertAnexo:(pac,user_id,file,nombrearchivo,palabracortada,nombre_estudio,tipo_estudio,detalle,type) => sequelize.query(
         `EXEC sp_insert_documents2 "${pac}",0,${user_id},null,"${type}",${file},"${nombrearchivo}","${palabracortada}","${nombre_estudio}","${tipo_estudio}","${detalle}"`
+    ),
+
+    getUserPlan2:()=> sequelize.query(
+        `select * from users where id_plan = 2`
+    ),
+
+    updatePlanUser:(user_id,plan_id)=> sequelize.query(
+        `update users set id_plan = ${plan_id} where user_id in( ${user_id})`
     )
   
 }

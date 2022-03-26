@@ -22,7 +22,8 @@ server.use(cors());
 
 //EJECUTAR EL CRON_JOB para eliminar los archivos
 const job = require("../cron/delete_file");
-const cita = require("../cron/UpdateCita")
+const cita = require("../cron/UpdateCita");
+const usuarios = require("../cron/update_plan");
 
 // import all routes
 server.use('/service/print', routes);
