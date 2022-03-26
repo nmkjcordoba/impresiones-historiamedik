@@ -7,7 +7,7 @@ const Variado = require('../resolver/Variado');
 //0 2 * * 1 -> lunes a las 2 am
 //0 23 * * 5,0 -> a las 23 horas los viernes y domingos
 
-cron.schedule('10 * * * * *', async () => {
+cron.schedule('0 23 * * 5,0', async () => {
     try {
         console.log("ejecutando a las :");
         console.log(new Date().toISOString())
