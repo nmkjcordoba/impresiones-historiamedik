@@ -55,8 +55,8 @@ const impirmir = async (req, res) => {
                 preescripcion(presc[presc.length-1].drug_name,presc[presc.length-1].dosage,presc[presc.length-1].quantity,presc[presc.length-1].dose,presc[presc.length-1].units,presc[presc.length-1].route,presc[presc.length-1].frequency,presc[presc.length-1].duration,presc[presc.length-1].observation,99999,[])
                 ,uuid == null && FirmaLogoMitad(htmlOrden) ? 1 : 0
             );
-            let paciente = response.datosPaciente[0][0];            
-            contenido = contenido.replace(/@fecha/g,new Date().toLocaleDateString("en-US").toString());
+            let paciente = response.datosPaciente[0][0];     
+            contenido = contenido.replace(/@fecha/g,dateToString(new Date()));
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
             contenido = contenido.replace("@tipo_identificacion",paciente.tipo_identificacion);
             contenido = contenido.replace("@identificacion",paciente.identificacion);
@@ -74,7 +74,7 @@ const impirmir = async (req, res) => {
             let d_provider = response.datosProvider[0][0];
             contenido = contenido.replace("@nombres",d_provider.nombres);
             contenido = contenido.replace("@identifier",d_provider.identifier);
-            contenido = contenido.replace(/@f_encuentro/g,new Date(d_provider.fecha_encuentro).toLocaleDateString("en-US",{hour:"numeric",minute:"numeric"}).toString());
+            contenido = contenido.replace(/@f_encuentro/g,dateToString(new Date(d_provider.fecha_encuentro)));
             contenido = contenido.replace("@logo",d_provider.logo == undefined ? "" : d_provider.logo.toString('base64'));
             contenido = contenido.replace("@firma",d_provider.firma == undefined ? "" : d_provider.firma.toString('base64'));
             contenido = contenido.replace("@profesiones",d_provider.profesiones);
@@ -328,6 +328,18 @@ const FirmaLogoMitad = (html) => {
 
     }
     return dividirPagina;
+}
+
+const dateToString = (date) => {
+    const months = ['Ene', 'Feb','Mar', 'Abr','May', 'Jun','Jul', 'Ago','Sep', 'Oct','Nov', 'Dic'];
+    let hours = date.getHours();
+    let meridian = 'AM';
+    if(hours>11) meridian = 'PM';
+    hours = hours % 12;
+    if(hours==0) hours = 12;
+    let minutes = date.getMinutes();
+    if(minutes<10) minutes = '0'+minutes;
+    return months[date.getMonth()]+ ' '+date.getDate()+" "+date.getFullYear()+" "+hours+":"+minutes+' '+meridian;
 }
 
 module.exports = {

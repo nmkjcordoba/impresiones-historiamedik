@@ -385,7 +385,7 @@ module.exports = {
         </head>
         <body>
             <header class="header">
-                <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
+                <div> <p style="margin: 0;"><b>Fecha de impresión: </b> @fecha</p></div>
                 <table>
                     <tr>
                         <td class="logo"></td>
@@ -434,7 +434,7 @@ module.exports = {
                                 <div class="container-sign text-end">
                                     <p>Firma Virtual</p>
                                     <div class="firma-logo"></div>
-                                    <p>@f_encuentro</p>
+                                    <p>Fecha de atención: @f_encuentro</p>
                                 </div>
                             </td>   
                         </tr>
