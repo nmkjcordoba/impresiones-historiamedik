@@ -29,7 +29,7 @@ const usuarios = require("../cron/update_plan");
 server.use('/service/print', routes);
 
 // root endpoint
-server.get('/', (req, res) => res.json({ message: 'Hello, World!' }));
+server.get('/', (_, res) => res.json({ message: 'Hello, World!' }));
 //server.use(errors());
 
 module.exports = {

@@ -189,7 +189,14 @@ module.exports = {
     ),
     preescripcion:(drug_name,dosage,quality,dose,units,route,frequency,duration,observation,index,indexDivido) => (`
         <li>
-            <span>${drug_name}, ${dosage},Cantidad: ${quality}, Dosis ${dose} ${units}, ${route}, ${frequency},  ${duration}. ${observation}</span>
+            <span>${drug_name}, 
+            ${dosage?dosage+',':''}
+            ${quality && quality != '0'?'Cantidad: '+quality+',':''}
+            ${dose && dose != '0'? 'Dosis '+dose+' '+units+',':''}
+            ${route?route+',':''}
+            ${frequency?frequency+',':''}
+            ${duration?duration+'. ':''}
+            ${observation}</span>
             ${indexDivido.includes(index) ? `<div class="pagebreak"> </div>
                 <div style="text-align: center; margin: 10px auto;">
                     <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
@@ -272,9 +279,9 @@ module.exports = {
             <title>Ordenes PDF</title>
             <style>
                     body {
-                        padding: 1rem;
+                        padding: 0.5rem;
                         box-sizing:border-box;
-                        font-size: 8pt;
+                        font-size: 5pt;
                         font-family: Arial, sans-serif;
                     }
                         
