@@ -249,7 +249,7 @@ module.exports = {
     },
     recomendaciones:(descripcion_orden,instrucciones,index,indexDivido) => (`
         <li>
-            <span>${descripcion_orden}, Intrucciones: ${instrucciones}.</span>
+            <span>${descripcion_orden}, Instrucciones: ${instrucciones}.</span>
             ${indexDivido.includes(index) ? `<div class="pagebreak"> </div>
                 <div style="text-align: center; margin: 10px auto;">
                     <div> <p style="margin: 0;"><b>Fecha: </b> @fecha</p></div>
