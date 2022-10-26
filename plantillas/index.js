@@ -281,7 +281,7 @@ module.exports = {
                     body {
                         padding: 0.5rem;
                         box-sizing:border-box;
-                        font-size: 7pt;
+                        font-size: 8pt;
                         font-family: Arial, sans-serif;
                     }
                         
@@ -370,7 +370,7 @@ module.exports = {
                     .container-sign {
                         width: 100px;
                         margin-left: auto;
-                        font-size:7px;
+                        font-size:8px;
                     }
                     .text-end {
                         text-align: end;
@@ -430,7 +430,7 @@ module.exports = {
                     <table>
                         <tr>
                             <td>
-                                <div style="font-size: 11px;">
+                                <div style="font-size: 8pt;">
                                     <div class="virtual-logo"></div>
                                     <p class="doctor-sign"><b>Dr (a): </b><span>@nombres</span></p>
                                     <p><b>N°: </b><span>@identifier</span></p>
