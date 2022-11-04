@@ -56,7 +56,7 @@ const impirmir = async (req, res) => {
                 ,uuid == null && FirmaLogoMitad(htmlOrden) ? 1 : 0
             );
             let paciente = response.datosPaciente[0][0];     
-            contenido = contenido.replace(/@fecha/g,dateToString(new Date()));
+            contenido = contenido.replace(/@fecha/g,dateToString(new Date(Date.now()-(5*3600*1000))));
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
             contenido = contenido.replace("@tipo_identificacion",paciente.tipo_identificacion);
             contenido = contenido.replace("@identificacion",paciente.identificacion);
@@ -103,7 +103,7 @@ const impirmir = async (req, res) => {
                 ,uuid == null && FirmaLogoMitad(htmlOrden) ? 1 : 0
             )
             let paciente = response.datosPaciente[0][0];            
-            contenido = contenido.replace(/@fecha/g,dateToString(new Date()));
+            contenido = contenido.replace(/@fecha/g,dateToString(new Date(Date.now()-(5*3600*1000))));
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
             contenido = contenido.replace("@tipo_identificacion",paciente.tipo_identificacion);
             contenido = contenido.replace("@identificacion",paciente.identificacion);
@@ -151,7 +151,7 @@ const impirmir = async (req, res) => {
             )
             
             let paciente = response.datosPaciente[0][0];            
-            contenido = contenido.replace(/@fecha/g,dateToString(new Date()));
+            contenido = contenido.replace(/@fecha/g,dateToString(new Date(Date.now()-(5*3600*1000))));
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
             contenido = contenido.replace("@tipo_identificacion",paciente.tipo_identificacion);
             contenido = contenido.replace("@identificacion",paciente.identificacion);
@@ -199,7 +199,7 @@ const impirmir = async (req, res) => {
             );
             
             let paciente = response.datosPaciente[0][0];            
-            contenido = contenido.replace(/@fecha/g,dateToString(new Date()));
+            contenido = contenido.replace(/@fecha/g,dateToString(new Date(Date.now()-(5*3600*1000))));
             contenido = contenido.replace("@nombreCompleto",paciente.nombreCompleto);
             contenido = contenido.replace("@tipo_identificacion",paciente.tipo_identificacion);
             contenido = contenido.replace("@identificacion",paciente.identificacion);
